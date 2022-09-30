@@ -29,36 +29,36 @@ const checkBracket = function(data) {
   let findIndexLeft = [];
   let findIndexRight = [];
 
-    if (arrBracket[0] !== "(") { //check index ตัวแรกว่ามีวงเล็บมั้ย
-      missLeftBracket += 1; //ถ้าไม่มีให้ค่า missLeftBracket +1
-      findIndexLeft.push(1);//
+    if (arrBracket[0] !== "(") { //check index ตัวแรกว่าเป็นวงเล็บเปิดมั้ย
+      missLeftBracket += 1; //ถ้าไม่ใช้ให้ค่า missLeftBracket +1
+      findIndexLeft.push(1);//และ push 1 ลงใน array ของ findIndexLeft
     }
 
-    for (let i = 1; i < arrBracket.length; i += 1) {
-      if (arrBracket[i - 1] === "(" && arrBracket[i] === ")") {
-        continue; //continue ถ้าไม่ตรงเงื่อนไขก็ข้ามไปบรรทัดล่าง
-      }
+    for (let i = 1; i < arrBracket.length; i++) { //ลูปเช็คค่าระหว่าง indexตัวแรกกับindexตัวสุดท้าย 
+      if (arrBracket[i - 1] === "(" && arrBracket[i] === ")") {//ถ้าตัวก่อนหน้าเป็น ( และตัวปัจจุบันเป็น )
+        continue; //ให้วนลูปถัดไป
+      } //Note : continue คือ ให้สั่งวนลูปถัดไปเลย
 
-      if (arrBracket[i - 1] === ")" && arrBracket[i] === "(" ) {
+      if (arrBracket[i - 1] === ")" && arrBracket[i] === "(" ) {//ถ้าตัวก่อนหน้าเป็น ( และตัวปัจจุบันเป็น (
         continue;
       }
       
-      if (arrBracket[i] === ")" && arrBracket[i - 1] === ")" ) {
-        missLeftBracket += 1;
-        findIndexLeft.push(i + 1);
+      if (arrBracket[i - 1] === ")" && arrBracket[i] === ")" ) {//ถ้าตัวก่อนหน้าเป็น ) และตัวปัจจุบันเป็น )
+        missLeftBracket += 1; //ให้ค่า missLeftBracket +1
+        findIndexLeft.push(i + 1); //และ push 1 ลงใน array ของ findIndexLeft
         continue;
       }
-      if (arrBracket[i] === "(" && arrBracket[i - 1] === "(" ) {
-        missRightBracket += 1;
-        findIndexRight.push(i + 1);
+      if (arrBracket[i - 1] === "(" && arrBracket[i] === "(" ) {//ถ้าตัวก่อนหน้าเป็น ( และตัวปัจจุบันเป็น (
+        missRightBracket += 1; //ให้ค่า missRightBracket +1
+        findIndexRight.push(i + 1); //และ push (i+1) ลงใน array ของ findIndexRight
         continue;
       }
     }
-    if (arrBracket[arrBracket.length - 1] !== ")") {  //check index ตัวสุดท้าย
-      missRightBracket += 1;
-      findIndexRight.push(arrBracket.length + 1);
+    if (arrBracket[arrBracket.length - 1] !== ")") {  //check index ตัวสุดท้ายว่าเป็นวงเล็บปิดมั้ย
+      missRightBracket += 1; //ให้ค่า missRightBracket +1
+      findIndexRight.push(arrBracket.length + 1); //และ push (arr.length+1) ลงใน array ของ findIndexRight
     }
-  const setMissIndex = (arr) => { //ใส่ and คั่น ถ้าขาด 2 ตัว หรือใส่2ตัวท้าย ถ้ามีมากกว่า 2 ใส่ , แทน
+  const setMissIndex = (arr) => { //ใส่ and คั่น ถ้าขาดวงเล็บ 2 ตัว ถ้าขาดมากกว่า 2 ใส่ , แทน แล้วใส่ and คั่น2ตัวสุดท้าย
       for (let i = 0; i < arr.length - 1; i++) {
         if (i == arr.length - 2) {
           arr[i] += " and";
@@ -66,23 +66,21 @@ const checkBracket = function(data) {
           arr[i] += " ,";
         }
       }
-      return arr.join(" ");
+      return arr.join(" "); //แล้วคั่นแต่ละตัวด้วยช่องว่าง
     };
 
     const textIndexLeft = setMissIndex(findIndexLeft);
     const textIndexRight = setMissIndex(findIndexRight);
   
-  if(missLeftBracket !== 0 ){
+  if(missLeftBracket !== 0 ){ //ถ้าไม่มีวงเล็บเปิดที่หายเลย
     console.log(`ต้องใส่ ( เพิ่ม ${missLeftBracket} ตัว ที่ตำแหน่ง ${textIndexLeft} `)
   }
-  if(missRightBracket !== 0 ){
+  if(missRightBracket !== 0 ){ //ถ้าไม่มีวงเล็บปิดที่หายเลย
     console.log(`ต้องใส่ ) เพิ่ม ${missRightBracket} ตัว ที่ตำแหน่ง ${textIndexRight} `)
   }
 
-  if(missLeftBracket === 0 && missRightBracket === 0 ){
+  if(missLeftBracket === 0 && missRightBracket === 0 ){ //ถ้าไม่มีวงเล็บเปิดกับวงเล็บปิดที่ขาดเลย
     console.log("ครบคู่")
   }
-
 }
-
 checkBracket(input);
