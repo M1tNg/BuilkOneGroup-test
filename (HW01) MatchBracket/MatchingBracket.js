@@ -58,19 +58,9 @@ const checkBracket = function(data) {
       missRightBracket += 1; //ให้ค่า missRightBracket +1
       findIndexRight.push(arrBracket.length + 1); //และ push (arr.length+1) ลงใน array ของ findIndexRight
     }
-  const setMissIndex = (arr) => { //ใส่ and คั่น ถ้าขาดวงเล็บ 2 ตัว ถ้าขาดมากกว่า 2 ใส่ , แทน แล้วใส่ and คั่น2ตัวสุดท้าย
-      for (let i = 0; i < arr.length - 1; i++) {
-        if (i == arr.length - 2) {
-          arr[i] += " and";
-        } else {
-          arr[i] += " ,";
-        }
-      }
-      return arr.join(" "); //แล้วคั่นแต่ละตัวด้วยช่องว่าง
-    };
 
-    const textIndexLeft = setMissIndex(findIndexLeft);
-    const textIndexRight = setMissIndex(findIndexRight);
+    const textIndexLeft = findIndexLeft.join(","); //คั่นตัวเลข index ที่หายไปด้วย , 
+    const textIndexRight = findIndexRight.join(",");
   
   if(missLeftBracket !== 0 ){ //ถ้าไม่มีวงเล็บเปิดที่หายเลย
     console.log(`ต้องใส่ ( เพิ่ม ${missLeftBracket} ตัว ที่ตำแหน่ง ${textIndexLeft} `)

@@ -84,4 +84,4 @@ const judgePoint24 = function (nums) {
   console.log(text);
 };
 
-judgePoint24(" 8497");
+judgePoint24(" 1234");
