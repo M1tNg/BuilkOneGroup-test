@@ -59,8 +59,8 @@ const checkBracket = function(data) {
       findIndexRight.push(arrBracket.length + 1); //และ push (arr.length+1) ลงใน array ของ findIndexRight
     }
 
-    const textIndexLeft = findIndexLeft.join(","); //คั่นตัวเลข index ที่หายไปด้วย , 
-    const textIndexRight = findIndexRight.join(",");
+    const textIndexLeft = findIndexLeft.join(" และ"); //คั่นตัวเลข index ที่หายไปด้วย , 
+    const textIndexRight = findIndexRight.join(" และ");
   
   if(missLeftBracket !== 0 ){ //ถ้าไม่มีวงเล็บเปิดที่หายเลย
     console.log(`ต้องใส่ ( เพิ่ม ${missLeftBracket} ตัว ที่ตำแหน่ง ${textIndexLeft} `)
